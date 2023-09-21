@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2_095 JQuery</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div class="header1">P2_095</div>
+
+    <form id="myForm">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Nama</td>
+                    <td>;</td>
+                    <td>
+                        <input id="nama" type="text" maxlength="20">
+                    </td>
+                    <td id="error_nama" style="color:red;"></td>
+                </tr>
+                <tr>
+                    <td>Mata Kuliah</td>
+                    <td>;</td>
+                    <td>
+                        <select id="matakuliah">
+                            <option value="">Pilih Mata Kuliah</option>
+                            <option value="Matematika">Matematika</option>
+                            <option value="Fisika">Fisika</option>
+                            <option value="Kimia">Kimia</option>
+                        </select>
+                    </td>
+                    <td id="error_matakuliah" style="color:red;"></td>
+                </tr>
+                <tr>
+                    <td>Nilai</td>
+                    <td>;</td>
+                    <td>
+                        <input id="nilai" type="number" min="0" max="100">
+                    </td>
+                    <td id="error_nilai" style="color:red;"></td>
+                </tr>
+                <tr>
+                    <td><button type="reset" id="batal" onclick="alert('Your Answer is Canceled')">Batal</button></td>
+                    <td></td>
+                    <td><button type="button" id="kirim">Kirim</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            $("#kirim").click(function () {
+                validate();
+            });
+
+            $("#batal").click(function () {
+                // Menghapus pesan kesalahan
+                $("#error_nama").html("");
+                $("#error_matakuliah").html("");
+                $("#error_nilai").html("");
+            });
+        });
+
+        function validate() {
+            let nama = $("#nama").val();
+            let matakuliah = $("#matakuliah").val();
+            let nilai = $("#nilai").val();
+            let validate = true;
+            const regex = /^[a-zA-Z ]*$/;
+
+            // Validasi nama
+            if (nama.trim() === "") {
+                $("#error_nama").html("Harap isi field Nama!");
+                validate = false;
+            } else if (nama.length > 20) {
+                $("#error_nama").html("Nama tidak boleh berisi lebih dari 20 karakter!");
+                validate = false;
+            } else if (!regex.test(nama)) {
+                $("#error_nama").html("Nama harus berisi huruf dan spasi!");
+                validate = false;
+            } else {
+                $("#error_nama").html("");
+            }
+
+            // Validasi mata kuliah
+            if (matakuliah === "") {
+                $("#error_matakuliah").html("Harap pilih Mata Kuliah!");
+                validate = false;
+            } else {
+                $("#error_matakuliah").html("");
+            }
+
+            // Validasi nilai
+            if (nilai === "") {
+                $("#error_nilai").html("Harap isi field Nilai!");
+                validate = false;
+            } else {
+                $("#error_nilai").html("");
+            }
+            return validate;
+        }
+    </script>
+</body>
+
+</html>
